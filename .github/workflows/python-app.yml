@@ -10,6 +10,10 @@ jobs:
   build-and-test:
     name: Build and Test (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    
+    # 关键修复：让 Python 知道去项目根目录找模块
+    env:
+      PYTHONPATH: ${{ github.workspace }}
 
     strategy:
       matrix:
@@ -31,4 +35,4 @@ jobs:
 
       - name: Run tests with pytest
         run: |
-          pytest -v
+          python -m pytest -v
